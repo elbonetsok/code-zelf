@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>My Favorite Listings</h1>
+
+{% if favorites %}
+    <ul>
+        {% for favorite in favorites %}
+            <li>
+                <strong>{{ favorite.listing.book.title }}</strong> - {{ favorite.listing.price }} EUR
+                <a href="{{ url_for('main.listing_detail', listing_id=favorite.listing.listing_id) }}">View Details</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no favorite listings.</p>
+{% endif %}
+{% endblock %}

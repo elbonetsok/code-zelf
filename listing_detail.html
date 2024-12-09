@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listing Details</title>
+</head>
+<body>
+    <h2>{{ listing.book.title }}</h2>
+    <p>Price: {{ listing.price }} EUR</p>
+    <p>Condition: {{ listing.condition }}</p>
+    <p>Status: {{ listing.status }}</p>
+
+    <!-- Reviews Section -->
+    <h3>Reviews:</h3>
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>{{ review.comment }} - Rating: {{ review.rating }}/5 (by User {{ review.user_id }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reviews available for this listing.</p>
+    {% endif %}
+
+    <!-- Add Review Link -->
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.add_review', listing_id=listing.listing_id) }}">Add a Review</a>
+    {% else %}
+        <p>You must <a href="{{ url_for('main.login') }}">login</a> to add a review.</p>
+    {% endif %}
+
+    <!-- Back Link -->
+    <a href="{{ url_for('main.index') }}">Back to Listings</a>
+</body>
+</html>

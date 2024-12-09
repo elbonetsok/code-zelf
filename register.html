@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <h2>Register</h2>
+    <form method="POST">
+        <!-- Voeg de CSRF-token hier toe als een verborgen input -->
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required><br>
+        
+        <label for="phone_number">Phone:</label>
+        <input type="text" name="phone_number" id="phone_number"><br>
+        
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

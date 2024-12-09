@@ -1,0 +1,11 @@
+<h2>Reviews for {{ book.title }}</h2>
+<ul>
+    {% for review in reviews %}
+        <li>
+            <strong>Rating:</strong> {{ review.rating }}<br>
+            <strong>Comment:</strong> {{ review.comment }}<br>
+            <em>By User {{ review.user_id }}</em>
+        </li>
+    {% endfor %}
+</ul>
+<a href="/listing_detail/{{ book.id }}">Back to Book Details</a>

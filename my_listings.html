@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Listings - Book Marketplace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="{{ url_for('main.index') }}">Home</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('main.my_listings') }}">My Listings</a>
+            <a href="{{ url_for('main.add_listing') }}">Add Listing</a>
+            <a href="{{ url_for('main.my_favorites') }}">My Favorites</a>
+            <a href="{{ url_for('main.logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('main.login') }}">Login</a>
+            <a href="{{ url_for('main.register') }}">Register</a>
+        {% endif %}
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- My Listings -->
+    <h2>My Listings</h2>
+    {% if listings %}
+        <ul>
+            {% for listing in listings %}
+                <li>
+                    <strong>{{ listing.book.title }}</strong> - {{ listing.price }} EUR - {{ listing.condition }}
+                    <a href="{{ url_for('main.edit_listing', listing_id=listing.listing_id) }}">Edit</a>
+                    <form action="{{ url_for('main.delete_listing', listing_id=listing.listing_id) }}" method="POST" style="display:inline;">
+                        {{ csrf_token() }}
+                        <button type="submit">Delete</button>
+                    </form>
+                    <a href="{{ url_for('main.listing_detail', listing_id=listing.listing_id) }}">View Details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no listings yet.</p>
+    {% endif %}
+</body>
+</html>

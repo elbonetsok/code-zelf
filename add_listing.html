@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Add Listing</h1>
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Book ID:</label>
+    <input type="number" name="book_id" required><br>
+    <label>Price:</label>
+    <input type="number" name="price" step="0.01" required><br>
+    <label>Condition:</label>
+    <select name="condition" required>
+        <option value="New">New</option>
+        <option value="Used">Used</option>
+    </select><br>
+    <label>Status:</label>
+    <select name="status">
+        <option value="Available">Available</option>
+        <option value="Sold">Sold</option>
+        <option value="Reserved">Reserved</option>
+    </select><br>
+    <label>Image URL (optional):</label>
+    <input type="text" name="image_url"><br>
+    <button type="submit">Add Listing</button>
+</form>
+{% endblock %}
